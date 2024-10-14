@@ -1,8 +1,6 @@
 #!/bin/bash
 
 
-# add a function to add separator after each section
-
 show_separator() {
     echo "----------------------------------------"
 }
