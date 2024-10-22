@@ -47,7 +47,7 @@ To set up SSH on a Linux server, specifically creating a simple Ubuntu Linux ser
 
 4. In the "Authentication" section, choose "SSH keys" for secure access:
    - If you haven't added an SSH key before, click "New SSH Key".
-   - Copy your public key (usually found in ~/.ssh/id_rsa.pub on your local machine) and paste it into the provided field.
+   - Copy your public key (usually found in `~/.ssh/id_rsa.pub` on your local machine) and paste it into the provided field.
    - Give your key a name and click "Add SSH Key".
 
 5. (Optional) Add a hostname for your droplet.
