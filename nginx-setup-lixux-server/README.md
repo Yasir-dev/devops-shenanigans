@@ -71,3 +71,36 @@ http://your_server_ip
 
 Now you will see a NGINX standard page 🥳
 
+## Deploy changes of static HTML page via a shell script
+
+The content of the page from `http://your_server_ip` are delivered from `/var/www/html/` folder which has the root user and group (this is not the best security practice). The web root files should be owned by a non-root user, typically the user that Nginx runs as. In most Linux distributions, Nginx runs under the www-data
+
+### Verify the NGINX user:
+
+  ```
+  id www-data
+  ```
+
+### Add a new user for our deploy script:
+
+  ```
+  sudo adduser deploy
+  ```
+### Change the owner and group for NGINX `/var/www/html/` folder:
+  
+  ```
+  sudo chown -R deploy:www-data /var/www/html
+  ```
+
+The above command make the deploy user as the owner of the folder and add the www-data group.
+
+### Change the file permissions:
+
+```
+sudo chmod -R 755 /var/www/html
+```
+
+The above command allows deploy user to to change the content and www-data user to read the content
+
+
+  
