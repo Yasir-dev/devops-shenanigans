@@ -80,6 +80,12 @@ adduser newusername
 usermod -aG sudo newusername
 ```
 
+### Verfiy that the user is now sudo group
+
+```
+getent group sudo
+```
+
 ### Setup the firewall
 
 Preview the list of installed UFW profiles:
