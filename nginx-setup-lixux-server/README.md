@@ -18,7 +18,9 @@ sudo apt install nginx
 
 Before testing Nginx, the firewall software needs to be configured to allow access to the service. Nginx registers itself as a service with ufw upon installation, making it straightforward to allow Nginx access. The can be verified by this command:
 
-`sudo ufw app list`
+```
+sudo ufw app list
+```
 
 Example output from the above command:
 
@@ -39,23 +41,33 @@ As shown by the output, there are three profiles available for Nginx:
 
 Recommended is to enable: Nginx Full, but for demo purpose we will use only Nginx HTTP:
 
-`sudo ufw allow 'Nginx HTTP'`
+```
+sudo ufw allow 'Nginx HTTP'
+```
 
 Verify the change:
 
-`sudo ufw status`
+```
+sudo ufw status
+```
 
 ## Check NGINX service status
 
-`systemctl status nginx`
+```
+systemctl status nginx
+```
 
 ## Use icanhazip.com tool to determine the public IP of your linux Server
 
-`curl -4 icanhazip.com`
+```
+curl -4 icanhazip.com
+```
 
 ## Enter the address in the browser
 
-`http://your_server_ip`
+```
+http://your_server_ip
+```
 
 Now you will see a NGINX standard page 🥳
 
