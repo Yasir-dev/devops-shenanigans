@@ -1,6 +1,6 @@
 # Set up NGINX on a Linux Server
 
-Follow the steps from [here](./../nginx-setup-lixux-server/README.md) and do the following:
+Follow the steps from [here](./../ssh-digital-occean-setup/README.md) and do the following:
 
 1. Set up a remote linux server
 2. Setup SSH
