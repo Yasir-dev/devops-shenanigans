@@ -86,6 +86,44 @@ The content of the page from `http://your_server_ip` are delivered from `/var/ww
   ```
   sudo adduser deploy
   ```
+### Add this user to sudo
+
+```
+sudo usermod -aG sudo deploy
+```
+
+### Verify that is is now part of sudo
+
+```
+getent group sudo
+```
+
+### Remove password restriction for deploy user
+
+You now have to remove the password restriction for sudo for the `deploy` user. start the sudo editor
+
+```
+sudo visudo
+```
+
+This will open in nano, if you want to use vi you do it with this command:
+
+```
+sudo update-alternatives --config editor
+```
+
+Now add the following to the bottom of the file (user this with care and never allow for untrusted user, only allow for trusted user and for deploy scripts in CI/CD)
+
+```
+deploy ALL=(ALL) NOPASSWD: ALL
+```
+
+### Copy the SSH public key, so the deploy user can deploy via SSH
+
+```
+sudo rsync --archive --chown=deploy:deploy ~/.ssh /home/deploy
+```
+
 ### Change the owner and group for NGINX `/var/www/html/` folder:
   
   ```
@@ -102,5 +140,15 @@ sudo chmod -R 755 /var/www/html
 
 The above command allows deploy user to to change the content and www-data user to read the content
 
+### Use the deploy script for deployment (from local/dev machine)
 
-  
+Make sure that the script is executable
+
+```
+chmod +x deploy.sh
+```
+
+deploy:
+```
+./deploy.sh
+```
