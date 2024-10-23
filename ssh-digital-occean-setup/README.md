@@ -60,6 +60,7 @@ To set up SSH on a Linux server, specifically creating a simple Ubuntu Linux ser
 ### SSH login as root
 
 Once the droplet is ready, you can SSH into it using the command:
+
    ```
    ssh root@your_droplet_ip
    ```
@@ -128,7 +129,9 @@ Enter the new `<newusername>` and you are good to go
 
 Logged in as root user we need to copy the local public key to `~/.ssh/authorized_keys` of the new user
 
-`rsync --archive --chown=<newusername>:<newusername> ~/.ssh /home/<newusername>`
+ ```
+rsync --archive --chown=<newusername>:<newusername> ~/.ssh /home/<newusername>
+ ```
 
 The above command copies the root user’s .ssh directory, retains the permissions, and changes the file owners-all in a single command
 
