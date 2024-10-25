@@ -1,3 +1,7 @@
+- [Checking DNS Records](#checking-dns-records)
+  - [A Record](#a-record)
+  - [AAA Record](#aaa-record)
+- [Checking if SSH is available](#checking-if-ssh-is-available)
 
 ## Checking DNS Records
 
