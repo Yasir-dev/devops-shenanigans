@@ -12,3 +12,9 @@ dig EXAMPLE.COM +noall +answer -t A
 ```
 dig EXAMPLE.COM +noall +answer -t AAAA
 ```
+
+### Checking if SSH is available
+
+```
+nc -zv <server_ip_or_hostname> 22
+```
