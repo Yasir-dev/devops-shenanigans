@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# place this file under:  ~/.config/git/hooks
+# add the hook in git config
+# set git hooks path in config: git config --global core.hooksPath path  
+
+# get the branch name
+BRANCH_NAME=$(git branch | grep '*' | sed 's/* //')
+
+# do not apply when rebasing
+if [ $BRANCH_NAME != '(no branch)' ]
+then
+  # Extract ticket from branch
+  TICKET=($(echo $BRANCH_NAME | grep -Eo "[A-Z]{1,10}-\d+"))
+  # Add ticket to commit message if it exists, otherwise just echo the commit message
+  if [ -n "$TICKET" ]; then
+    echo "$TICKET: $(cat "$1")" > "$1"
+  fi
+  # your regularly scheduled hook
+fi
