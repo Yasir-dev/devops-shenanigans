@@ -2,6 +2,30 @@
 
 Netdata is a powerful, real-time performance monitoring solution designed for systems and applications. It provides detailed insights into system metrics including CPU usage, memory consumption, disk activity, network traffic, and application-specific metrics with minimal overhead.
 
+## Table of Contents
+- [Ubuntu server setup](#ubuntu-server-setup)
+  - [Creating a new user](#creating-a-new-user)
+  - [Give new user Admin permissions](#give-new-user-admin-permissions)
+  - [Remove password restriction for new user](#remove-password-restriction-for-new-user)
+  - [Setup the firewall for SSH access](#setup-the-firewall-for-ssh-access)
+  - [Enable SSH access of newly created User](#enable-ssh-access-of-newly-created-user)
+- [Install and Setup Netdata](#install-and-setup-netdata)
+  - [SSH login as a newly created user](#ssh-login-as-a-newly-created-user)
+  - [Install Netdata](#install-netdata)
+  - [Verify that it is running](#verify-that-it-is-running)
+- [Set Up Reverse Proxy](#set-up-reverse-proxy)
+  - [Install NGINX](#install-nginx)
+  - [Adjust the Firewall](#adjust-the-firewall)
+  - [Listen on Localhost Only (netdata)](#listen-on-localhost-only-netdata)
+  - [Enable HTTPS](#enable-https)
+  - [Enable Password Authentication](#enable-password-authentication)
+- [Add alert and Slack Notification](#add-alert-and-slack-notification)
+  - [Add Slack Notification](#add-slack-notification)
+  - [Stress test the system to check netdata dashboard and Slack Notifications](#stress-test-the-system-to-check-netdata-dashboard-and-slack-notifications)
+- [Automate everything as a script](#automate-everything-as-a-script)
+  - [Usage](#usage)
+- [Prerequisites for Running the Script from CI Pipeline](#prerequisites-for-running-the-script-from-ci-pipeline)
+
 ## Ubuntu server setup
 
 I am using a Digital Ocean droplet with Ubuntu as OS
