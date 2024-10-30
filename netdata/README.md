@@ -372,7 +372,6 @@ The script requires several parameters to be passed as arguments. Below is the u
 
 ```
 sudo ./netdata-setup.sh \
-  -u "your-username" \
   -d "netdata.yourdomain.com" \
   -e "your-email@example.com" \
   -n "netdata-user" \
