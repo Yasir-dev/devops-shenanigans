@@ -112,7 +112,7 @@ This will open in nano, if you want to use vi you do it with this command:
 sudo update-alternatives --config editor
 ```
 
-Now add the following to the bottom of the file (user this with care and never allow for untrusted user, only allow for trusted user and for deploy scripts in CI/CD)
+Now add the following to the bottom of the file (use this with care and never allow for untrusted user, only allow for trusted user and for deploy scripts in CI/CD)
 
 ```
 deploy ALL=(ALL) NOPASSWD: ALL
