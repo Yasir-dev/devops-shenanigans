@@ -343,6 +343,7 @@ SLACK_WEBHOOK_URL="https://hooks.slack.com/services/XXXXXXXX/XXXXXXXX/XXXXXXXXXX
 DEFAULT_RECIPIENT_SLACK="#alarms"
 ```
 
+You can check other notification options [here](https://learn.netdata.cloud/docs/alerts-&-notifications/notifications/agent-dispatched-notifications)
 
 #### Stress test the system to check netdata dashboard and Slack Notifications
 
