@@ -69,7 +69,7 @@ Once the droplet is ready, you can SSH into it using the command:
 
 **IMPORTANT:** Due to high privileges, it is not recommended to use root user on a regular basis, so we will create a normal user with sudo privileges.
 
-### Creating a new use 
+### Creating a new user 
 
 ```
 adduser newusername
@@ -81,7 +81,7 @@ adduser newusername
 usermod -aG sudo newusername
 ```
 
-### Verfiy that the user is now sudo group
+### Verify that the user is now sudo group
 
 ```
 getent group sudo
