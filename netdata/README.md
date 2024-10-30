@@ -389,7 +389,7 @@ You should now see the matrix changing on your dashboard and you should receive 
 
 ## Automate everything as a script
 
-To automate the entire setup process, you can use the `netdata-setup.sh` script. This script will handle the installation and configuration of Netdata, NGINX, SSL, and Slack notifications.
+To automate the entire setup process, you can use the [netdata-setup.sh](./netdata-setup.sh) script. This script will handle the installation and configuration of Netdata, NGINX, SSL, and Slack notifications.
 
 ### Usage
 
@@ -409,7 +409,7 @@ This script can also be used in the CI pipeline using Github Actions & GitLab CI
 
 ## Prerequisites for Running the Script from CI Pipeline
 
-Before running the `netdata-setup.sh` script from a CI pipeline, ensure the following prerequisites are met:
+Before running the [netdata-setup.sh](./netdata-setup.sh) script from a CI pipeline, ensure the following prerequisites are met:
 
 1. **Secret Key Management**:
    - Store sensitive information such as passwords, Slack webhook URLs, and email addresses as secrets in your CI/CD platform (e.g., GitHub Secrets, GitLab CI/CD Variables).
