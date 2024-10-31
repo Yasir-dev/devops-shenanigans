@@ -128,7 +128,7 @@ apt update
 bash <(curl -Ss https://my-netdata.io/kickstart.sh)
 ```
 
-#### Verify that is is running
+#### Verify that it is running
 
 ```
 systemctl status netdata
