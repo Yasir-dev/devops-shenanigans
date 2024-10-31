@@ -115,7 +115,7 @@ rsync --archive --chown=<newusername>:<newusername> ~/.ssh /home/<newusername>
 The above command copies the root user’s .ssh directory, retains the permissions, and changes the file owners-all in a single command
 
 
-### Install and Setup Netadata
+### Install and Setup Netdata
 
 #### SSH login as a newly created user
 
