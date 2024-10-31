@@ -146,7 +146,7 @@ Verify
 sudo ufw status
 ```
 
-Now the netadata should be accessable via this URL:
+Now the netdata should be accessable via this URL:
 
 ```
 http://server-ip:19999
@@ -233,7 +233,7 @@ sudo systemctl restart nginx
 
 IMPORTANT: Do not forget to add a A record on your domain registry and point to the ip of your server
 
-#### Listen on Localhost Only (netadata)
+#### Listen on Localhost Only (netdata) 
 
 
 ```
