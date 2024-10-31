@@ -71,19 +71,14 @@ sudo vi /etc/systemd/system/dummy-logger.service
 
 ```
 [Unit]
-# A brief description of the service
 Description=Dummy Logger Service
-# Specifies that this service should start after the network is u
 After=network.target
 
 [Service]
-# Defines the service type; 'oneshot' means it runs a single task and then exits
 Type=oneshot
-# The command that will be executed when the service starts
 ExecStart=/usr/local/bin/dummy-logger.sh
 
 [Install]
-# Indicates the target that this service should be started under; 'multi-user.target' is a common target for services
 WantedBy=multi-user.target
 ```
 
