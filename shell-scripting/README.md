@@ -3,7 +3,6 @@
 
 ## $ dollar sign
 
-# Start of Selection
 - `$0`: The name of the script itself (or the command that started the script).
   - **Example**: If you run `./myscript.sh`, then `$0` will be `./myscript.sh`.
 - `$#`: The total number of arguments passed to the script.
