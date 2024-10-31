@@ -1,6 +1,12 @@
 - [Checking DNS Records](#checking-dns-records)
   - [A Record](#a-record)
-  - [AAA Record](#aaa-record)
+  - [AAAA Record](#aaaa-record)
+  - [Reverse DNS Lookup (PTR Record)](#reverse-dns-lookup-ptr-record)
+  - [Query CNAME Records](#query-cname-records)
+  - [Get Authoritative Name Servers (NS Records)](#get-authoritative-name-servers-ns-records)
+  - [View SOA Record for DNS Zone Information](#view-soa-record-for-dns-zone-information)
+  - [View MX Record](#view-mx-record)
+  - [View TXT Record](#view-txt-record)
 - [Checking if SSH is available](#checking-if-ssh-is-available)
 
 ## Checking DNS Records
