@@ -184,12 +184,6 @@ Verify the firewall status:
 sudo ufw status
 ````
 
-Verify the firewall status:
-
-```
-sudo ufw status
-````
-
 After Nginx is installed, create a virtual host config file for netdata under `/etc/nginx/conf.d/` directory
 
 ```
