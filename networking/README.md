@@ -1,3 +1,5 @@
+- [How DNS Works](how-dns-works.pdf)
+- [DNS Records](dns-records.pdf)
 - [Checking DNS Records](#checking-dns-records)
   - [A Record](#a-record)
   - [AAAA Record](#aaaa-record)
