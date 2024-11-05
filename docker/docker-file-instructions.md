@@ -227,3 +227,27 @@ Example:
 ```
 STOPSIGNAL SIGTERM
 ```
+
+### Best practices
+
+1. **Use a Specific Base Image**: Instead of using `FROM ubuntu:latest`, specify a version (e.g., `FROM ubuntu:20.04`) to ensure consistency and avoid unexpected changes when the base image is updated.
+
+2. **Minimize the Number of Layers**: Combine multiple `RUN` commands into a single command using `&&` to reduce the number of layers in the final image, which can help decrease image size.
+
+3. **Order Instructions Strategically**: Place frequently changing instructions (like `COPY` for application code) towards the end of the Dockerfile. This allows Docker to cache earlier layers and speed up builds.
+
+4. **Use `.dockerignore`**: Create a `.dockerignore` file to exclude files and directories that are not needed in the image, reducing build context size and improving build performance.
+
+5. **Leverage Multi-Stage Builds**: Use multi-stage builds to separate build dependencies from runtime dependencies, resulting in smaller final images.
+
+6. **Specify a Non-Root User**: Use the `USER` instruction to run your application as a non-root user for better security practices.
+
+7. **Keep Images Small**: Remove unnecessary files and dependencies in the same `RUN` command to keep the image size down.
+
+8. **Document Your Dockerfile**: Use comments to explain the purpose of each instruction, making it easier for others (and yourself) to understand the Dockerfile later.
+
+9. **Use Health Checks**: Implement `HEALTHCHECK` to monitor the health of your application running in the container, allowing Docker to manage the container lifecycle more effectively.
+
+10. **Regularly Update Base Images**: Keep your base images up to date to benefit from security patches and improvements.
+
+11. **Use Explicit Versions for Dependencies** Pin versions of packages to avoid breaking changes in base images or dependencies. Example `RUN apt-get install -y nginx=1.18.*`
