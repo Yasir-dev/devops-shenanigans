@@ -45,6 +45,12 @@ Recommended is to enable: Nginx Full, but for demo purpose we will use only Ngin
 sudo ufw allow 'Nginx HTTP'
 ```
 
+Enable the firewall
+
+```
+ufw enable
+```
+
 Verify the change:
 
 ```
