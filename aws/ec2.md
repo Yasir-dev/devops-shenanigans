@@ -415,3 +415,49 @@ Here is the diagram showing the above implemented auto scaling:
 
 ![Auto Scaling](auto-scaling.png)
 
+
+### Load balancer without Auto Scaling (Fixed number of EC2 Instances with load balancing)
+
+1. Create a VPC
+3. Attache the created Internet Gateway to the VPC
+4. Create a subnet (create two subnets in different availability zone for high availability)
+5. Create route table
+6. Associate route table to the above created 2 subnets
+7. Create a route for Internet Gateway inside the above created route table
+    - 0.0.0.0/0 (from anywhere) → IGW (the one which we created above)
+8. Create a target group
+    - A target group is used to route requests to one or more registered targets (such as EC2 instances) when using a load balancer. It allows you to configure health checks, specify the protocol and port for routing, and manage the targets that receive traffic.
+    - Go to the EC2 dashboard
+    - Click on "Target Groups" in the left-hand menu
+    - Click "Create target group"
+    - Set the target type to "Instances"
+    - Set the protocol to "HTTP" and the port to "80"
+    - Set the VPC to the one you created earlier
+    - Click "Next"
+    - Skip the "Register targets" step for now (we will register targets later)
+    - Click "Create target group"
+9. Create Loud Balancer
+   - click on load balancer in EC2 Dashboard
+   - click Application Load Balance
+   - click create
+   - enter name
+   - select Internet facing
+   - IP type as IPv4
+   - select the above created VPC
+   - map bot the subnets created above in the difference zones
+   - create a security group in the above created VPC with ssh and http inbound rules
+   - add a listener for http on port 80 and set target to the above created target group
+    
+        | Protocol | Port | Target Group |
+        |----------|------|--------------|
+        | HTTP     | 80   | YourTargetGroupName |
+    
+    - click create load balancer
+10. Launch EC instances and register them in the above created target group
+11. Now go to your load balancer and copy the public DNS
+12. Open the URL in the browser
+13. On refreshing you should see different EC2 Instance ip in the response
+
+Here is the architectural diagram of the above setup:
+
+![Classic Load Balancer](classic-load-balancer.png)
