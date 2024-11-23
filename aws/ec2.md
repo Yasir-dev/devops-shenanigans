@@ -337,7 +337,7 @@ Let's implement a auto scaling on AWS
 1. Create a VPC
 2. Create Internet Gateway
 3. Attache the created Internet Gateway to the VPC
-4. Create a subnet (create two subnets in different availability zone for high availability)
+4. Create subnets (create two subnets in different availability zone for high availability)
 5. Create route table
 6. Associate route table to the above created 2 subnets
 7. Create a route for Internet Gateway inside the above created route table
@@ -419,8 +419,9 @@ Here is the diagram showing the above implemented auto scaling:
 ### Load balancer without Auto Scaling (Fixed number of EC2 Instances with load balancing)
 
 1. Create a VPC
+2. Create Internet Gateway
 3. Attache the created Internet Gateway to the VPC
-4. Create a subnet (create two subnets in different availability zone for high availability)
+4. Create subnets (create two subnets in different availability zone for high availability)
 5. Create route table
 6. Associate route table to the above created 2 subnets
 7. Create a route for Internet Gateway inside the above created route table
@@ -461,3 +462,108 @@ Here is the diagram showing the above implemented auto scaling:
 Here is the architectural diagram of the above setup:
 
 ![Classic Load Balancer](classic-load-balancer.png)
+
+
+### EC2 Spot Instances
+
+EC2 Spot Instances are a type of Amazon EC2 instance that allows you to take advantage of unused EC2 capacity in the AWS cloud at significantly reduced costs. Spot Instances are available for up to 90% off the on-demand price, making them an attractive option for cost-sensitive workloads.
+
+AWS provides a two-minute warning before terminating Spot Instances (when requested by someone else as on demand instances), allowing you to handle the interruption gracefully.
+
+#### Combining on demand and spot EC2 Instances
+
+For maximum availability while optimizing costs, you can combine On-Demand and Spot instances behind a load balancer. A recommended approach is to maintain a base capacity of On-Demand instances (e.g., 60%) to handle your steady-state traffic, while using Spot instances (e.g., 40%) to handle variable loads and scale cost-effectively. This hybrid setup works well for applications that can handle instance interruptions, like web servers, batch processing, or containerized workloads. However, avoid using Spot instances for critical stateful applications, databases, or workloads requiring consistent performance. The load balancer automatically routes traffic away from terminated Spot instances, ensuring service continuity.
+
+#### Load balancer with combination of on demand and spot EC2 Instances
+
+1. Create a VPC
+2. Create Internet Gateway
+3. Attache the created Internet Gateway to the VPC
+4. Create subnets (create two subnets in different availability zone for high availability) you can create more for hight availability
+5. Create route table
+6. Associate route table to the above created 2 subnets
+7. Create a route for Internet Gateway inside the above created route table
+    - 0.0.0.0/0 (from anywhere) → IGW (the one which we created above)
+9. create a security group in the above created VPC with ssh and http inbound rules  
+8. Create a EC2 Instance launch template for spot instances
+    1. Go to the EC2 dashboard
+    2. Click on "Launch Templates" in the left-hand menu
+    3. Click "Create launch template"
+    4. Enter a name and description for the launch template (e.g., `ec2-with-nginx`)
+    5. Under "Launch template contents", configure the following settings:
+        - AMI ID: Select an appropriate Amazon Machine Image (AMI) for your instance
+        - Instance type: Choose the instance type (e.g., t2.micro)
+        - Key pair: Select an existing key pair or create a new one
+        - Security groups: Select the security group you created with HTTP (port 80) and SSH (port 22) rules
+        - Make sure to select Auto-assign public IP as enable
+        - User data: Enter the following user data script to install Nginx on the instance:
+            ```bash
+            #!/bin/bash
+            sudo apt-get update -y
+            sudo apt-get install nginx -y
+            cat <<EOF > /var/www/html/index.html
+            <html>
+            <head>
+                <title>EC2 Instance Info</title>
+            </head>
+            <body>
+                <h1>Welcome to EC2 Instance</h1>
+                <p><strong>Spot Instance Hostname:</strong> $(hostname -f)</p>
+            </body>
+            </html>
+            EOF
+            sudo systemctl start nginx
+            sudo systemctl enable nginx
+            ```
+    6. Configure any additional settings as needed (e.g., storage, network interfaces)
+    7. Click "Create launch template"
+9. Go to spot requests from EC2 Dashboard and request let's say 4 spot instances fleet (use the configuration which suites you use case)
+10. Create two EC2 On demand instances with the also the above user data command (change the paragraph with on demand instead of Spot Instance)
+11. Create a target group
+    - A target group is used to route requests to one or more registered targets (such as EC2 instances) when using a load balancer. It allows you to configure health checks, specify the protocol and port for routing, and manage the targets that receive traffic.
+    - Go to the EC2 dashboard
+    - Click on "Target Groups" in the left-hand menu
+    - Click "Create target group"
+    - Set the target type to "Instances"
+    - Set the protocol to "HTTP" and the port to "80"
+    - Set the VPC to the one you created earlier
+    - Click "Next"
+    - Skip the "Register targets" step for now (we will register targets later)
+    - Click "Create target group"
+12. Create Loud Balancer
+   - click on load balancer in EC2 Dashboard
+   - click Application Load Balance
+   - click create
+   - enter name
+   - select Internet facing
+   - IP type as IPv4
+   - select the above created VPC
+   - map bot the subnets created above in the difference zones
+   - create a security group in the above created VPC with ssh and http inbound rules
+   - add a listener for http on port 80 and set target to the above created target group
+        | Protocol | Port | Target Group |
+        |----------|------|--------------|
+        | HTTP     | 80   | YourTargetGroupName |
+
+   - click create load balancer
+13. Now go to your load balancer and copy the public DNS
+14. Open the URL in the browser
+15. On refreshing you should see different EC2 Instance ip in the response (sometimes spot instance and sometime on demand instances)
+  
+Here is the architectural diagram of the above setup:
+
+![Spot and On demand EC2 comined](spot-ondemand-ec2-combined.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
