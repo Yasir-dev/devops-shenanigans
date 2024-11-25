@@ -554,7 +554,112 @@ Here is the architectural diagram of the above setup:
 
 ![Spot and On demand EC2 comined](spot-ondemand-ec2-combined.png)
 
+### EC2 EBS Volume
 
+EBS (Elastic Block Store) volumes are block-level storage devices that can be attached to EC2 instances. They provide persistent storage that remains available even after the instance is stopped or terminated. EBS volumes are used for a variety of purposes, including storing data, databases, and application files.
+
+There are two main types EBS volumes gp and io
+
+| EBS Type     | Performance                                      | Cost                                         |
+|-------------|--------------------------------------------------|----------------------------------------------|
+| General Purpose (gp) | Good price and performance. Works for many workloads. | Usually cheaper. Good for most applications. |
+| Provisioned IOPS (io) | Designed for I/O-intensive apps needing high performance and low latency. | More expensive due to provisioned IOPS for consistent performance. |
+
+You can read more about them [here](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html)
+
+Choosing the correct type for use case depends on the Throughput and I/O of your application use case. You can read this interesting [StackOverflow](https://stackoverflow.com/a/61795555) to under understand the difference between Throughput and I/O
+
+#### how to create EBS Volume and attach to EC2 Instance
+
+1. Launch a new EC2 instance
+2. Go to EC2 Dashboard and click on volumes under Elastic Block Store
+3. Click create volume
+4. Select your preferences (make sure to create the volume in the same availability zone where your EC2 instance is running otherwise you can not attach the volume to the EC2 Instance)
+5. Now select the newly created volume and click action and then attach
+6. Select instance and device name
+
+
+You can verify that the volume is attached by doing this:
+- ssh to the EC2 container
+- run the command `lsblk`
+
+This volume is attached but not useable yet, we need to make it useable, follow these steps:
+
+List the disk partitions:
+
+```
+sudo fdisk -l
+```
+
+Check the file system (you will not see any file system)
+
+```
+sudo lsblk -f /dev/xvdk
+```
+
+Create the file system:
+
+```
+sudo mkfs -t xfs /dev/xvdk
+```
+
+Now confirm the file system:
+
+```
+sudo lsblk -f /dev/xvdk
+```
+
+you will see the filesystem xfs
+
+Create a directory to mount:
+
+```
+sudo mkdir /demo-ebs-volume
+```
+
+Mount the volume to the path:
+
+```
+sudo mount /dev/xvdk /demo-ebs-volume
+```
+
+confirm:
+
+```
+df -h
+```
+
+
+#### increase volume size
+
+-  Go to EC2 Dashboard and clicking on volumes under Elastic Block Store
+- Select you volume and click modify
+- Increase size
+- Click apply
+
+It will take a few minutes and the size will be increased
+
+IMPORTANT: You can only increase size and not decrease the size of the EBS volume
+
+Verify the increased size:
+
+
+```
+sudo fdisk -l
+```
+
+#### EBS Snapshots
+
+- An EBS snapshot is a backup of your EBS volume that is stored in Amazon S3. Snapshots are incremental backups, meaning that only the blocks that have changed since the last snapshot are saved, which helps to save storage space and reduce costs.
+- To create a snapshot, go to the EC2 Dashboard, click on "Volumes" under Elastic Block Store, select the volume you want to back up, and then click on "Create Snapshot."
+- You can also automate snapshot creation using AWS Lambda or AWS Backup for regular backups.
+- Snapshots can be used to create new EBS volumes (go to snapshots and click the action create volume from the snapshot), allowing you to restore data or create copies of your existing volumes.
+- Volumes created from snapshots have already the filesystem and you just need to mount them
+- Keep in mind that while snapshots are stored in S3, they are not directly accessible like regular S3 objects. You can only use them to create new EBS volumes or restore existing ones.
+
+#### Important Considerations
+- Snapshots are charged based on the amount of data stored in S3, so it's important to manage them effectively.
+- You can also share snapshots with other AWS accounts or make them public, but be cautious with sensitive data.
 
 
 
