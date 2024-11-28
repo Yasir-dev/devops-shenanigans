@@ -82,7 +82,7 @@ AWS VPC (Virtual Private Cloud) is a fundamental service for constructing your c
 - A VPC can span multiple AZs within the same region.
 
 
-![AWS VPC](aws-vpc.png)
+![AWS VPC](diagrams/aws-vpc.png)
 
 
 ### Creating a VPC
@@ -118,7 +118,7 @@ The newly created VPC does not include any subnets. To begin utilizing this VPC,
 - Simply having a subnet does not mean that you can access the internet
 - You need to create and configure route tables for that
 
-![AWS VPC Subnets](aws-vpc-subnets.png)
+![AWS VPC Subnets](diagrams/aws-vpc-subnets.png)
 
 
 #### Create a subnet
@@ -141,7 +141,7 @@ Important every new subnet CIDR start from the new number at the second digit of
 
 Now the subnets are created inside the VPC:
 
-![VPC Subnets](vpc-subnets.png)
+![VPC Subnets](diagrams/vpc-subnets.png)
 
 ### Internet Gateway
 
@@ -226,7 +226,7 @@ NAT is a one way communication i.e any resource inside private subnet can make r
 
 All the above related to VPC, Subnets, Internet Gateway, Route Tables and NAT can be is shown in the diagram below:
 
-![VPC Public/Private Subnets](aws-vpc-public-private-subnets.png)
+![VPC Public/Private Subnets](diagrams/aws-vpc-public-private-subnets.png)
 
 #### Security Groups
 
@@ -277,7 +277,7 @@ By configuring security groups, you can control the traffic to and from your EC2
 EC2 Launch Templates allow you to create pre-configured EC2 instance configurations that can be reused to launch instances quickly and consistently. Launch templates can include details such as the AMI ID, instance type, key pair, security groups, and user data.
 
 
-![EC Launch Templates](launch-template.png)
+![EC Launch Templates](diagrams/launch-template.png)
 
 #### Example: Creating an EC2 Launch Template
 
@@ -413,7 +413,7 @@ The Auto scaling will automatically provision a new EC2 instance to fulfill the 
 
 Here is the diagram showing the above implemented auto scaling:
 
-![Auto Scaling](auto-scaling.png)
+![Auto Scaling](diagrams/auto-scaling.png)
 
 
 ### Load balancer without Auto Scaling (Fixed number of EC2 Instances with load balancing)
@@ -461,7 +461,7 @@ Here is the diagram showing the above implemented auto scaling:
 
 Here is the architectural diagram of the above setup:
 
-![Classic Load Balancer](classic-load-balancer.png)
+![Classic Load Balancer](diagrams/classic-load-balancer.png)
 
 
 ### EC2 Spot Instances
@@ -552,7 +552,7 @@ For maximum availability while optimizing costs, you can combine On-Demand and S
   
 Here is the architectural diagram of the above setup:
 
-![Spot and On demand EC2 comined](spot-ondemand-ec2-combined.png)
+![Spot and On demand EC2 combined](diagrams/spot-ondemand-ec2-combined.png)
 
 ### EC2 EBS Volume
 
